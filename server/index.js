@@ -9,13 +9,16 @@ const port = 3005;
 
 const app = express();
 
+// this sets up the settings for AWS and loads in your credentials.
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION,
 });
+// with those settings applied make an interface with s3
 const S3 = new AWS.S3();
 
+// because the file upload is such a large string the body parser is not equiped to handle it. this allows you to upload files through the body.
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
